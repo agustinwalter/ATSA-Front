@@ -1,0 +1,11 @@
+{
+  "firebaseConfig": {
+    "apiKey": "AIzaSyCyqbYk2QJ4v6ZbcLxFmx9A5dbC_CHhUBo",
+    "authDomain": "atsa-santa-cruz.firebaseapp.com",
+    "projectId": "atsa-santa-cruz",
+    "storageBucket": "atsa-santa-cruz.appspot.com",
+    "messagingSenderId": "412090342809",
+    "appId": "1:412090342809:web:ce9afea4b1e93a17e3c708",
+    "measurementId": "G-E6TZR6S1FH"
+  }
+}

@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { AuthContext } from './context/AuthContext'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Console from './screens/Console'
+import SetBusiness from './screens/SetBusiness'
+import NotFound from './screens/NotFound'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#2196F3'
+    }
+  }
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <AuthContext>
+        <Router>
+          <Switch>
+            <Route exact path='/'>
+              <Console />
+            </Route>
+            <Route exact path='/agregar-negocio'>
+              <SetBusiness />
+            </Route>
+            <Route path='/editar-negocio/:businessId'>
+              <SetBusiness />
+            </Route>
+            <Route path='*'>
+              <NotFound />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthContext>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
