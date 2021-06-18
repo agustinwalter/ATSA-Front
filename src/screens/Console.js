@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import Card from '@material-ui/core/Card';
 import 'firebase/firestore'
 
 const Console = () => {
@@ -30,8 +31,7 @@ const Console = () => {
     // Get users.
     firebase
       .firestore()
-      .collection('users')
-      .where('email', '>', '')
+      .collection('users-v2')
       .get()
       .then(snap => {
         let users = []
@@ -75,6 +75,12 @@ const Console = () => {
           <Typography variant='h5' className={c.usersTitle}>
             Usuarios
           </Typography>
+          {/* Info message */}
+          <Card className={c.infoCard}>
+            <Typography variant="body2" component="p">
+              <b>Nota importante:</b> Los usuarios que usaron la versión anterior de ATSA Santa Cruz aparecerán aquí a medida que vayan actualizando la app. <b>No será necesario volver a revisar sus estados de afiliación.</b>
+            </Typography>
+          </Card>
           {/* Users table */}
           {loadingUsers ? (
             <div className={c.centerLoading}>
@@ -85,8 +91,7 @@ const Console = () => {
               <Table size='small'>
                 <TableHead>
                   <TableRow>
-                    <TableCell>DNI</TableCell>
-                    <TableCell>Email</TableCell>
+                    <TableCell>Nombre y apellido</TableCell>
                     <TableCell align='right'>Estado</TableCell>
                   </TableRow>
                 </TableHead>

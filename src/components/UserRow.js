@@ -7,8 +7,11 @@ import TableRow from '@material-ui/core/TableRow'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
+const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
+
 function UserRow({ userData }) {
   const [status, setStatus] = React.useState(userData.status)
+  const fullName = capitalize(userData.name) + ' ' + capitalize(userData.surname)
 
   const changeUserStatus = e => {
     // Local UI update.
@@ -60,10 +63,7 @@ function UserRow({ userData }) {
 
   return (
     <TableRow key={userData.dni} hover>
-      <TableCell component='th' scope='row'>
-        {userData.dni}
-      </TableCell>
-      <TableCell>{userData.email}</TableCell>
+      <TableCell>{fullName}</TableCell>
       <TableCell align='right'>
         <FormControl size='small' variant='outlined'>
           <Select value={status} onChange={changeUserStatus}>
