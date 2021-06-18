@@ -78,7 +78,7 @@ const Console = () => {
           {/* Info message */}
           <Card className={c.infoCard}>
             <Typography variant="body2" component="p">
-              <b>Nota importante:</b> Los usuarios que usaron la versión anterior de ATSA Santa Cruz aparecerán aquí a medida que vayan actualizando la app. <b>No será necesario volver a revisar sus estados de afiliación.</b>
+              <b>Nota importante:</b> Las personas que usaron la versión anterior de ATSA Santa Cruz aparecerán aquí a medida que vayan actualizando la app. <b>No será necesario volver a revisar sus estados de afiliación.</b>
             </Typography>
           </Card>
           {/* Users table */}
@@ -92,7 +92,9 @@ const Console = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Nombre y apellido</TableCell>
-                    <TableCell align='right'>Estado</TableCell>
+                    <TableCell>DNI</TableCell>
+                    <TableCell>Estado</TableCell>
+                    <TableCell align='right'>Acciones</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
