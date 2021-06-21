@@ -12,7 +12,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import Divider from '@material-ui/core/Divider';
 import styles from './styles/UserRowStyles'
-import Badge from '@material-ui/core/Badge';
 
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -20,7 +19,16 @@ function UserRow({ userData }) {
   const c = styles()
 
   const [status, setStatus] = React.useState(userData.status)
+  const [tooltip, setTooltip] = React.useState("Copiar dirección de Email")
   const fullName = capitalize(userData.name) + ' ' + capitalize(userData.surname)
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText(userData.email);
+    setTooltip('¡Copiada!');
+    setTimeout(() => {
+      setTooltip('Copiar dirección de Email');
+    }, 1000);
+  }
 
   const changeUserStatus = e => {
     // Local UI update.
@@ -91,18 +99,16 @@ function UserRow({ userData }) {
       </TableCell>
       <TableCell align='right'>
         <div className={c.divActions}>
-          <Tooltip title="Copiar dirección de Email">
-            <IconButton size="small" color="primary">
+          <Tooltip title={tooltip}>
+            <IconButton size="small" color="primary" onClick={copyEmail}>
               <MailOutlineOutlinedIcon />
             </IconButton>
           </Tooltip>
           <Divider orientation="vertical" flexItem className={c.divider} />
           <Tooltip title="Formulario de afiliación">
-            {/* <Badge badgeContent={1} color="secondary" overlap="circle"> */}
             <IconButton size="small" color="primary">
               <DescriptionOutlinedIcon />
             </IconButton>
-            {/* </Badge> */}
           </Tooltip>
         </div>
       </TableCell>

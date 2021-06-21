@@ -32,6 +32,7 @@ const Console = () => {
     firebase
       .firestore()
       .collection('users-v2')
+      .where('email', '>', '')
       .get()
       .then(snap => {
         let users = []
