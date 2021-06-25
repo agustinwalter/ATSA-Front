@@ -30,7 +30,7 @@ function App() {
             <Route path='/editar-negocio/:businessId'>
               <SetBusiness />
             </Route>
-            <Route path='/formulario-de-afiliacion'>
+            <Route path='/formulario-de-afiliacion/:formId'>
               <AffiliationForm />
             </Route>
             <Route path='*'>

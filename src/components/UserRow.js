@@ -23,7 +23,6 @@ function UserRow({ userData }) {
   const [tooltip, setTooltip] = React.useState("Copiar dirección de Email")
 
   const fullName = capitalize(userData.name) + ' ' + capitalize(userData.surname)
-  const showAffiliationIcon = userData.hasOwnProperty('affiliation-form')
 
   const copyEmail = () => {
     navigator.clipboard.writeText(userData.email);
@@ -108,7 +107,7 @@ function UserRow({ userData }) {
               <MailOutlineOutlinedIcon />
             </IconButton>
           </Tooltip>
-          {showAffiliationIcon &&
+          {userData.showFormIcon &&
             <>
               <Divider orientation="vertical" flexItem className={c.divider} />
               <Link to={`/formulario-de-afiliacion/${userData.docId}`}>

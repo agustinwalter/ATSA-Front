@@ -45,15 +45,14 @@ const Console = () => {
             usersInDb.docs.forEach(doc => {
               const formIndex = forms.docs.findIndex(form => form.id === doc.id)
               let user = doc.data()
-              user['docId'] = doc.id
-              if (formIndex > -1) {
-                user['affiliation-form'] = forms.docs[formIndex].data()
-              }
+              user.docId = doc.id
+              if (formIndex > -1) user.showFormIcon = true
+              else user.showFormIcon = false
               users.push(user)
             })
             users.sort((a, b) => {
-              var x = a['createdAt']
-              var y = b['createdAt']
+              var x = a.createdAt
+              var y = b.createdAt
               return x > y ? -1 : x > y ? 1 : 0
             })
             setUsers(users)
