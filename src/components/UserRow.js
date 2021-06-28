@@ -12,6 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import Divider from '@material-ui/core/Divider';
 import styles from './styles/UserRowStyles'
+import { Link } from 'react-router-dom'
 
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -20,6 +21,7 @@ function UserRow({ userData }) {
 
   const [status, setStatus] = React.useState(userData.status)
   const [tooltip, setTooltip] = React.useState("Copiar dirección de Email")
+
   const fullName = capitalize(userData.name) + ' ' + capitalize(userData.surname)
 
   const copyEmail = () => {
@@ -91,6 +93,7 @@ function UserRow({ userData }) {
         <FormControl size='small' variant='outlined'>
           <Select value={status} onChange={changeUserStatus}>
             <MenuItem value={'PENDING_VERIFICATION'}>Verificación pendiente</MenuItem>
+            <MenuItem value={'AFFILIATION_FORM_PENDING'}>Afiliación pendiente</MenuItem>
             <MenuItem value={'AFFILIATED'}>Afiliado</MenuItem>
             <MenuItem value={'NOT_AFFILIATED'}>No afiliado</MenuItem>
             <MenuItem value={'BLOCKED'}>Bloqueado</MenuItem>
@@ -104,12 +107,18 @@ function UserRow({ userData }) {
               <MailOutlineOutlinedIcon />
             </IconButton>
           </Tooltip>
-          <Divider orientation="vertical" flexItem className={c.divider} />
-          <Tooltip title="Formulario de afiliación">
-            <IconButton size="small" color="primary">
-              <DescriptionOutlinedIcon />
-            </IconButton>
-          </Tooltip>
+          {userData.showFormIcon &&
+            <>
+              <Divider orientation="vertical" flexItem className={c.divider} />
+              <Link to={`/formulario-de-afiliacion/${userData.docId}`}>
+                <Tooltip title="Formulario de afiliación">
+                  <IconButton size="small" color="primary">
+                    <DescriptionOutlinedIcon />
+                  </IconButton>
+                </Tooltip>
+              </Link>
+            </>
+          }
         </div>
       </TableCell>
     </TableRow>
