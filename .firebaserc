@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "atsa-santa-cruz"
+    "default": "atsa-santa-cruz",
+    "dev": "atsa-dev-1da6f",
+    "prod": "atsa-santa-cruz"
   }
 }

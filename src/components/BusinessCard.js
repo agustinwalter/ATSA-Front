@@ -58,10 +58,7 @@ function BusinessCard({ business }) {
         </div>
         <Divider orientation='vertical' flexItem />
         <div className={c.businessActions}>
-          <Link
-            to={`/editar-negocio/${business.docId}`}
-            className={c.noUnderline}
-          >
+          <Link to={`/editar-negocio/${business.docId}`}>
             <IconButton color='primary' component='span'>
               <EditOutlinedIcon />
             </IconButton>

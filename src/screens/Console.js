@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import Card from '@material-ui/core/Card';
 import 'firebase/firestore'
 
 const Console = () => {
@@ -30,23 +31,33 @@ const Console = () => {
     // Get users.
     firebase
       .firestore()
-      .collection('users')
+      .collection('users-v2')
       .where('email', '>', '')
       .get()
-      .then(snap => {
-        let users = []
-        snap.docs.forEach(doc => {
-          let user = doc.data()
-          user['docId'] = doc.id
-          users.push(user)
-        })
-        users.sort((a, b) => {
-          var x = a['createdAt']
-          var y = b['createdAt']
-          return x > y ? -1 : x > y ? 1 : 0
-        })
-        setUsers(users)
-        setLoadingUsers(false)
+      .then(usersInDb => {
+        // Get forms
+        firebase
+          .firestore()
+          .collection('forms')
+          .get()
+          .then((forms) => {
+            const users = []
+            usersInDb.docs.forEach(doc => {
+              const formIndex = forms.docs.findIndex(form => form.id === doc.id)
+              let user = doc.data()
+              user.docId = doc.id
+              if (formIndex > -1) user.showFormIcon = true
+              else user.showFormIcon = false
+              users.push(user)
+            })
+            users.sort((a, b) => {
+              var x = a.createdAt
+              var y = b.createdAt
+              return x > y ? -1 : x > y ? 1 : 0
+            })
+            setUsers(users)
+            setLoadingUsers(false)
+          });
       })
     // Get business.
     firebase
@@ -75,6 +86,12 @@ const Console = () => {
           <Typography variant='h5' className={c.usersTitle}>
             Usuarios
           </Typography>
+          {/* Info message */}
+          <Card className={c.infoCard}>
+            <Typography variant="body2" component="p">
+              <b>Nota importante:</b> Las personas que usaron la versión anterior de ATSA Santa Cruz aparecerán aquí a medida que vayan actualizando la app. <b>No será necesario volver a revisar sus estados de afiliación.</b>
+            </Typography>
+          </Card>
           {/* Users table */}
           {loadingUsers ? (
             <div className={c.centerLoading}>
@@ -85,9 +102,10 @@ const Console = () => {
               <Table size='small'>
                 <TableHead>
                   <TableRow>
+                    <TableCell>Nombre y apellido</TableCell>
                     <TableCell>DNI</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell align='right'>Estado</TableCell>
+                    <TableCell>Estado</TableCell>
+                    <TableCell align='right'>Acciones</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

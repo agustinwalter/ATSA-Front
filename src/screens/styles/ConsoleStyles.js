@@ -31,5 +31,11 @@ export default makeStyles(theme => ({
   },
   centerLoading: {
     textAlign: 'center'
+  },
+  infoCard: {
+    padding: '16px',
+    marginBottom: '16px',
+    background: 'rgba(255, 229, 100, 0.2)',
+    borderLeft: '5px solid #ffe564',
   }
 }))

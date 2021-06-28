@@ -13,8 +13,24 @@ export const AuthContext = ({ children }) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
-      setUser(user)
-      setShowChild(true)
+      if (user != null) {
+        // Check if the user is admin.
+        firebase
+          .firestore()
+          .doc(`users-v2/${user.uid}`)
+          .get()
+          .then(snap => {
+            if (snap.data().admin) {
+              setUser(user)
+            } else {
+              firebase.auth().signOut()
+            }
+            setShowChild(true)
+          })
+      } else {
+        setUser(null)
+        setShowChild(true)
+      }
     })
   }, [])
 

@@ -38,7 +38,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   const [showSnackbar, setShowSnackbar] = useState(false)
 
-  const _signInWithGoogle = async e => {
+  const _signIn = async e => {
     e.preventDefault()
     if (!loading) {
       setLoading(true)
@@ -64,7 +64,7 @@ const Login = () => {
             ATSA Administración
           </Typography>
           <br />
-          <form onSubmit={_signInWithGoogle}>
+          <form onSubmit={_signIn}>
             <TextField
               label='Email'
               type='email'

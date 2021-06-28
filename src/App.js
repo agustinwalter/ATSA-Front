@@ -5,6 +5,7 @@ import Console from './screens/Console'
 import SetBusiness from './screens/SetBusiness'
 import NotFound from './screens/NotFound'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import AffiliationForm from './screens/AffiliationForm'
 
 const theme = createMuiTheme({
   palette: {
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <Route path='/editar-negocio/:businessId'>
               <SetBusiness />
+            </Route>
+            <Route path='/formulario-de-afiliacion/:formId'>
+              <AffiliationForm />
             </Route>
             <Route path='*'>
               <NotFound />
